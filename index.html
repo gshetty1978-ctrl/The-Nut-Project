@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nut Project</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --brown:#3B1F0A;
+  --cream:#FAF3E8;
+}
+
+body{
+  font-family:'Lato',sans-serif;
+  background:var(--cream);
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60px;
+  background:var(--brown);
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  color:white;
+  z-index:100;
+}
+
+/* SLIDER */
+.hero{
+  margin-top:60px;
+  height:90vh;
+  overflow:hidden;
+  position:relative;
+}
+
+.slides{
+  display:flex;
+  height:100%;
+  transition:0.8s ease;
+}
+
+.slide{
+  min-width:100%;
+  position:relative;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.slide-overlay{
+  position:absolute;
+  bottom:40px;
+  left:40px;
+  color:white;
+  font-size:2rem;
+}
+
+/* ARROWS */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.2);
+  border:none;
+  color:white;
+  font-size:22px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.prev{left:15px;}
+.next{right:15px;}
+
+/* DOTS */
+.dots{
+  position:absolute;
+  bottom:20px;
+  right:30px;
+  display:flex;
+  gap:8px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.5);
+  border:none;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:white;
+}
+
+/* CONTACT BUTTON */
+#contactBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  padding:14px 28px;
+  border-radius:40px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  color:white;
+  background:linear-gradient(135deg,#3B1F0A,#ffffff);
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  z-index:1000;
+}
+
+/* POPUP */
+#popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(8px);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  width:340px;
+  padding:25px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+  color:white;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  animation:fade 0.4s;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;}
+}
+
+input,textarea{
+  width:100%;
+  margin-bottom:10px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+}
+
+button.submit{
+  width:100%;
+  padding:10px;
+  background:#3B1F0A;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* SUCCESS */
+.success{
+  display:none;
+  text-align:center;
+}
+
+.check{
+  font-size:60px;
+  color:#4CAF50;
+  animation:pop 0.4s;
+}
+
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<nav>Nut Project</nav>
+
+<section class="hero">
+  <div class="slides" id="slides">
+
+    <div class="slide"><img src="https://images.unsplash.com/photo-1574201635302-388dd92a4c3f"><div class="slide-overlay">Almond Butter</div></div>
+    <div class="slide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"><div class="slide-overlay">Nut Spreads</div></div>
+    <div class="slide"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c"><div class="slide-overlay">Chocolate Nuts</div></div>
+    <div class="slide"><img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32"><div class="slide-overlay">Hazelnut Cream</div></div>
+    <div class="slide"><img src="https://images.unsplash.com/photo-1548940740-204726a19be3"><div class="slide-overlay">Morning Blend</div></div>
+
+  </div>
+
+  <button class="arrow prev" id="prev">←</button>
+  <button class="arrow next" id="next">→</button>
+
+  <div class="dots" id="dots"></div>
+</section>
+
+<button id="contactBtn">Contact</button>
+
+<div id="popup">
+  <div class="box">
+    <span class="close" id="close">✖</span>
+
+    <div id="formArea">
+      <h3>Contact</h3>
+      <form id="form">
+        <input name="name" placeholder="Name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+
+        <!-- spam trap -->
+        <input type="text" name="honeypot" style="display:none">
+
+        <button class="submit">Send</button>
+      </form>
+    </div>
+
+    <div class="success" id="success">
+      <div class="check">✔</div>
+      <p>Sent!</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const slides=document.querySelectorAll(".slide");
+const slidesWrap=document.getElementById("slides");
+const dotsWrap=document.getElementById("dots");
+
+let i=0;
+
+// dots
+slides.forEach((_,idx)=>{
+  const d=document.createElement("button");
+  d.classList.add("dot");
+  if(idx===0)d.classList.add("active");
+  d.onclick=()=>go(idx);
+  dotsWrap.appendChild(d);
+});
+
+function go(n){
+  i=(n+slides.length)%slides.length;
+  slidesWrap.style.transform=`translateX(-${i*100}%)`;
+
+  document.querySelectorAll(".dot").forEach((d,idx)=>{
+    d.classList.toggle("active",idx===i);
+  });
+}
+
+// arrows
+document.getElementById("next").onclick=()=>go(i+1);
+document.getElementById("prev").onclick=()=>go(i-1);
+
+// auto
+setInterval(()=>go(i+1),5000);
+
+// popup
+const popup=document.getElementById("popup");
+document.getElementById("contactBtn").onclick=()=>popup.style.display="flex";
+document.getElementById("close").onclick=()=>popup.style.display="none";
+
+window.onclick=e=>{
+  if(e.target===popup) popup.style.display="none";
+};
+
+// form
+document.getElementById("form").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  const form=e.target;
+  if(form.honeypot.value!=="") return;
+
+  const data=new FormData(form);
+
+  const res=await fetch("https://formspree.io/f/xrerqdej",{
+    method:"POST",
+    body:data,
+    headers:{'Accept':'application/json'}
+  });
+
+  if(res.ok){
+    document.getElementById("formArea").style.display="none";
+    document.getElementById("success").style.display="block";
+    form.reset();
+  }else{
+    alert("Error");
+  }
+});
+</script>
+
+</body>
+</html>
