@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Cart</title>
+<style>
+body{font-family:Arial;text-align:center;background:#FAF3E8;padding:40px;}
+li{margin:10px;}
+button{padding:10px;background:#3B1F0A;color:white;border:none;margin:5px;}
+</style>
+</head>
+<body>
+
+<h1>🛒 Your Cart</h1>
+
+<ul id="cartList"></ul>
+
+<button onclick="clearCart()">Clear Cart</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let list = document.getElementById("cartList");
+
+cart.forEach(item=>{
+  let li = document.createElement("li");
+  li.textContent = item;
+  list.appendChild(li);
+});
+
+function clearCart(){
+  localStorage.removeItem("cart");
+  location.reload();
+}
+</script>
+
+</body>
+</html>
