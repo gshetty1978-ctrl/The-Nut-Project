@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; text-align: center; background: linear-gradient(135deg, #FAF3E8 0%, #F0E6D2 100%); padding: 40px 20px; min-height: 100vh; }
+.container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(59,31,10,0.15); }
+h1 { color: #3B1F0A; margin-bottom: 30px; font-size: 2.5em; }
+ul { list-style: none; padding: 0; margin-bottom: 30px; }
+li { margin: 15px 0; padding: 20px; background: #FFF8E1; border-radius: 12px; border-left: 5px solid #3B1F0A; text-align: left; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s; }
+li:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+li strong { color: #3B1F0A; font-size: 1.2em; }
+li small { color: #666; margin-left: 10px; }
+button { padding: 15px 40px; background: linear-gradient(45deg, #3B1F0A, #5D4037); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: all 0.3s; box-shadow: 0 5px 15px rgba(59,31,10,0.3); margin: 10px; }
+button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,31,10,0.4); }
+.empty { color: #666; font-style: italic; font-size: 1.2em; padding: 40px; background: #FFF8E1; border-radius: 12px; margin: 20px 0; }
+#actions { display: none; }
+@media (max-width: 480px) { .container { padding: 30px 20px; } h1 { font-size: 2em; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🛒 Your Cart</h1>
+  <ul id="cartList"></ul>
+  <div id="actions">
+    <button onclick="clearCart()">🗑️ Clear Cart</button>
+    <button onclick="checkout()" style="background: linear-gradient(45deg, #4CAF50, #45a049);">💬 WhatsApp Order</button>
+  </div>
+  <a href="index.html" style="display: inline-block; margin-top: 25px; color: #3B1F0A; text-decoration: none; font-weight: bold; padding: 12px 24px; border: 2px solid #3B1F0A; border-radius: 25px; transition: all 0.3s;">🏠 Continue Shopping</a>
+</div>
+
+<script>
+function updateCartDisplay() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let list = document.getElementById("cartList");
+  let actions = document.getElementById("actions");
+  
+  list.innerHTML = '';
+  
+  if (cart.length === 0) {
+    let li = document.createElement("li");
+    li.textContent = "Your cart is empty 😊";
+    li.className = "empty";
+    list.appendChild(li);
+    actions.style.display = "none";
+  } else {
+    cart.forEach((item, index) => {
+      let li = document.createElement("li");
+      li.innerHTML = `<strong>${item}</strong> <small>(#${index + 1})</small>`;
+      list.appendChild(li);
+    });
+    actions.style.display = "block";
+  }
+}
+
+function clearCart() {
+  if (confirm("Are you sure you want to clear your cart? This cannot be undone!")) {
+    localStorage.removeItem("cart");
+    updateCartDisplay();
+  }
+}
+
+function checkout() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) return;
+  
+  const items = cart.join(', ');
+  const message = encodeURIComponent(`Hi! I want to order these items:\n\n${items}\n\nTotal items: ${cart.length}`);
+  window.open(`https://wa.me/919890270078?text=${message}`, '_blank');
+}
+
+// Initialize
+updateCartDisplay();
+document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+</body>
+</html>
