@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hazelnut Cream</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Copy the SAME <style> from previous product pages -->
+<style>
+/* SAME STYLES AS OTHER PRODUCT PAGES - paste the full style block here */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { text-align: center; font-family: Arial, sans-serif; padding: 40px 20px; background: linear-gradient(135deg, #FAF3E8 0%, #F0E6D2 100%); min-height: 100vh; }
+.container { max-width: 500px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(59,31,10,0.15); }
+/* ... rest of styles exactly same as previous files ... */
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🥜 Hazelnut Cream</h1>
+  <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hazelnut Cream" loading="lazy">
+  
+  <p>🥄 Rich and smooth hazelnut spread. Perfect for toast, crepes, or straight from the jar!</p>
+
+  <button onclick="buyNow('Hazelnut Cream')">
+    💬 Buy via WhatsApp
+  </button>
+
+  <a href="index.html">⬅ Back to Home</a>
+</div>
+<script>
+function buyNow(product) {
+  const phone = '919890270078';
+  const message = encodeURIComponent(`Hi! I want to order: ${product}`);
+  window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+}
+</script>
+</body>
+</html>

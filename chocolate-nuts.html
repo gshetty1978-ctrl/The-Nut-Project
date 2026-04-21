@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chocolate Nuts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { text-align: center; font-family: Arial, sans-serif; padding: 40px 20px; background: linear-gradient(135deg, #FAF3E8 0%, #F0E6D2 100%); min-height: 100vh; }
+.container { max-width: 500px; margin: 0 auto; background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(59,31,10,0.15); }
+img { width: 100%; max-width: 350px; height: 250px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; }
+h1 { color: #3B1F0A; margin-bottom: 15px; font-size: 2.2em; }
+p { color: #666; font-size: 1.1em; margin-bottom: 30px; line-height: 1.5; }
+button { padding: 15px 40px; background: linear-gradient(45deg, #3B1F0A, #5D4037); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: all 0.3s; box-shadow: 0 5px 15px rgba(59,31,10,0.3); }
+button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,31,10,0.4); }
+a { display: inline-block; margin-top: 25px; color: #3B1F0A; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #3B1F0A; border-radius: 25px; transition: all 0.3s; }
+a:hover { background: #3B1F0A; color: white; }
+@media (max-width: 480px) { .container { padding: 30px 20px; } h1 { font-size: 1.8em; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🍫 Chocolate Nuts</h1>
+  <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chocolate Nuts" loading="lazy">
+  
+  <p>🍂 Premium crunchy nuts dipped in smooth, rich milk chocolate. Irresistible snack for any time! Roasted almonds, cashews and peanuts covered in chocolate perfection.</p>
+
+  <button onclick="buyNow('Chocolate Nuts')">
+    💬 Buy via WhatsApp
+  </button>
+
+  <a href="index.html">⬅ Back to Home</a>
+</div>
+
+<script>
+function buyNow(product) {
+  const phone = '919890270078';
+  const message = encodeURIComponent(`Hi! I want to order: ${product}`);
+  window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+}
+</script>
+</body>
+</html>
